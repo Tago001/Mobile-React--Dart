@@ -1,0 +1,136 @@
+import 'package:flutter/material.dart';
+
+void main() {
+runApp(
+MaterialApp(
+title: 'Exemplo de Texto Flutter',
+
+theme: ThemeData(primarySwatch: Colors.blue),
+
+home: Scaffold(
+appBar: AppBar(title: Text('Tela Principal')),
+
+body: MyHomePage(), // Chama o Construtor que está abaixo
+),
+),
+);
+}
+
+class MyHomePage extends StatefulWidget {
+// A Extensão complementa a classe, o StatefulWidget serve para gerenciar estados
+@override
+_MyHomePageState createState() => _MyHomePageState(); // Cria um objeto MyHomePageState
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+final TextEditingController _nome = TextEditingController();
+final TextEditingController _cpf = TextEditingController();
+final TextEditingController _endereco = TextEditingController();
+
+
+String _displayText = 'Formulário';
+
+@override
+Widget build(BuildContext context) {
+// É o principal, aonde renderiza a tela e da alguns parametros
+return Center(
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center, // Alinhamento
+
+children: [
+// Cria um Array
+Text(_displayText, style: TextStyle(fontSize: 24)),
+
+SizedBox(height: 20), // Criou a distância da caixa pro texto
+
+Padding(
+padding: const EdgeInsets.symmetric(
+horizontal: 16,
+), // Cria o espaçamento
+
+child: TextField(
+controller: _nome,
+
+decoration: InputDecoration(
+border: OutlineInputBorder(),
+
+labelText: 'Digite o seu Nome',
+),
+),
+),
+
+SizedBox(height: 20),
+
+Padding(
+padding: const EdgeInsets.symmetric(
+horizontal: 16,
+), // Cria o espaçamento
+
+child: TextField(
+controller: _cpf,
+
+decoration: InputDecoration(
+border: OutlineInputBorder(),
+
+labelText: 'Digite o seu CPF',
+),
+),
+),
+
+SizedBox(height: 20),
+Padding(
+padding: const EdgeInsets.symmetric(
+horizontal: 16,
+), // Cria o espaçamento
+
+child: TextField(
+controller: _endereco,
+
+decoration: InputDecoration(
+border: OutlineInputBorder(),
+
+labelText: 'Digite o Endereço',
+),
+),
+),
+
+SizedBox(height: 20),
+
+ElevatedButton(
+onPressed: () {
+setState(() {
+_displayText = _nome.text;
+});
+},
+
+child: Text('Atualizar Nome'),
+),
+
+SizedBox(height: 20),
+
+ElevatedButton(
+onPressed: () {
+setState(() {
+_displayText = _cpf.text;
+});
+},
+
+child: Text('Atualizar CPF'),
+),
+
+SizedBox(height: 20),
+
+ElevatedButton(
+onPressed: () {
+setState(() {
+_displayText = _endereco.text;
+});
+},
+
+child: Text('Atualizar Endereço'),
+),
+],
+),
+);
+}
+}
