@@ -1,0 +1,55 @@
+class Funcionario {
+// Atributo Priv
+double _salBruto = 0;
+double _valHora = 0;
+int _hrExtra = 0;
+int _hrFalta = 0;
+double _vlExtra = 0;
+double _vlDesc = 0;
+double _vlSalLiq = 0;
+
+// Getters
+double get salarioBruto => _salBruto;
+double get valorHora => _valHora;
+int get hrExtra => _hrExtra;
+int get horasFaltas => _hrFalta;
+double get valExtra => _vlExtra;
+double get valDesc => _vlDesc;
+double get salarioLiquido => _vlSalLiq;
+
+// Setters
+set salarioBruto(double novoSalBruto) {
+this._salBruto = novoSalBruto;
+this._valHora = this._salBruto / (30 * 8);
+}
+
+set hrExtra(int novasHrExtra) {
+this._hrExtra = novasHrExtra;
+}
+
+set horasFaltas(int novasHrFalta) {
+this._hrFalta = novasHrFalta;
+}
+}
+
+void main() {
+// Objeto
+var funcionario = Funcionario();
+
+// ValAtributo
+funcionario.salarioBruto = 2000;
+funcionario.hrExtra = 120;
+funcionario.horasFaltas = 0;
+
+// Calculos
+funcionario._vlExtra = funcionario.hrExtra * funcionario.valorHora * 1.5;
+funcionario._vlDesc = funcionario.horasFaltas * funcionario.valorHora;
+funcionario._vlSalLiq = funcionario.salarioBruto + funcionario.valExtra - funcionario.valDesc;
+
+// Resultados
+
+print('Salário Liquido: R\$${funcionario.salarioBruto.toStringAsFixed(2)}');
+print('Salário Bruto: R\$${funcionario.salarioLiquido.toStringAsFixed(2)}');
+print('Total de Descontos: R\$${funcionario.valDesc.toStringAsFixed(2)}');
+print('Valor Hora Extra: R\$${funcionario.valExtra.toStringAsFixed(2)}');
+}
