@@ -1,0 +1,140 @@
+import 'package:flutter/material.dart';
+
+void main() {
+runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+home: Scaffold(
+appBar: AppBar(title: Text('Somador de Números')),
+body: SomadorForm(),
+),
+);
+}
+}
+
+class SomadorForm extends StatefulWidget {
+@override
+_SomadorFormState createState() => _SomadorFormState();
+}
+
+class _SomadorFormState extends State<SomadorForm> {
+final TextEditingController _numero1 = TextEditingController();
+final TextEditingController _numero2 = TextEditingController();
+String _resultado = '';
+
+void _somar() {
+final double? numero1 = double.tryParse(_numero1.text);
+final double? numero2 = double.tryParse(_numero2.text);
+
+if (numero1 != null && numero2 != null) {
+final double soma = numero1 + numero2;
+
+setState(() {
+_resultado = 'Resultado: $soma';
+});
+} else {
+setState(() {
+_resultado = 'Por favor, insira números válidos.';
+});
+}
+}
+
+void _subtrair() {
+final double? numero1 = double.tryParse(_numero1.text);
+final double? numero2 = double.tryParse(_numero2.text);
+
+if (numero1 != null && numero2 != null) {
+final double subtracao = numero1 - numero2;
+
+setState(() {
+_resultado = 'Resultado: $subtracao';
+});
+} else {
+setState(() {
+_resultado = 'Por favor, insira números válidos.';
+});
+}
+}
+
+void _multiplicar() {
+final double? numero1 = double.tryParse(_numero1.text);
+final double? numero2 = double.tryParse(_numero2.text);
+
+if (numero1 != null && numero2 != null) {
+final double multiplicar = numero1 * numero2;
+setState(() {
+_resultado = 'Resultado: $multiplicar';
+});
+} else {
+setState(() {
+_resultado = 'Por favor, insira números válidos.';
+});
+}
+}
+
+void _dividir() {
+final double? numero1 = double.tryParse(_numero1.text);
+final double? numero2 = double.tryParse(_numero2.text);
+
+if (numero1 != null && numero2 != null) {
+if (numero2 == 0) {
+setState(() {
+_resultado = 'Não é possível dividir por zero';
+});
+} else {
+final double dividir = numero1 / numero2;
+setState(() {
+_resultado = 'Resultado: $dividir';
+});
+}
+} else {
+setState(() {
+_resultado = 'Por favor, insira números válidos.';
+});
+}
+}
+
+@override
+Widget build(BuildContext context) {
+return Padding(
+padding: const EdgeInsets.all(16.0),
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+TextField(
+controller: _numero1,
+decoration: InputDecoration(labelText: 'Número 1'),
+keyboardType: TextInputType.numberWithOptions(decimal: true),
+),
+TextField(
+controller: _numero2,
+decoration: InputDecoration(labelText: 'Número 2'),
+keyboardType: TextInputType.numberWithOptions(decimal: true),
+),
+SizedBox(height: 10),
+Row(
+mainAxisAlignment: MainAxisAlignment.center,
+children: [
+ElevatedButton(onPressed: _somar, child: Text('Somar')),
+SizedBox(width: 20),
+ElevatedButton(onPressed: _subtrair, child: Text('Subtrair')),
+SizedBox(width: 20),
+ElevatedButton(
+onPressed: _multiplicar,
+child: Text('Multiplicação'),
+),
+SizedBox(width: 20),
+ElevatedButton(onPressed: _dividir, child: Text('Divisão')),
+],
+),
+SizedBox(height: 20),
+Text(_resultado, style: TextStyle(fontSize: 24)),
+],
+),
+);
+}
+}
