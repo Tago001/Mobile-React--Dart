@@ -1,0 +1,122 @@
+import 'package:flutter/material.dart';
+
+void main() {
+runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+@override
+Widget build(BuildContext context) {
+return MaterialApp(
+home: Scaffold(
+appBar: AppBar(title: Text('Calculadora de Salário')),
+body: CalculadoraSalarioForm(),
+),
+);
+}
+}
+
+class CalculadoraSalarioForm extends StatefulWidget {
+@override
+_CalculadoraSalarioFormState createState() => _CalculadoraSalarioFormState();
+}
+
+class _CalculadoraSalarioFormState extends State<CalculadoraSalarioForm> {
+final TextEditingController _salarioBaseController = TextEditingController();
+final TextEditingController _horasExtrasController = TextEditingController();
+final TextEditingController _horasFaltadasController =
+TextEditingController();
+
+String _resultadoSalarioBase = '';
+String _resultadoSalarioFinal = '';
+String _resultadoDesconto = '';
+String _resultadoHoraExtra = '';
+
+void _calcularSalario() {
+final double? salarioBase = double.tryParse(_salarioBaseController.text);
+final double? horasExtras = double.tryParse(_horasExtrasController.text);
+final double? horasFaltadas = double.tryParse(
+_horasFaltadasController.text,
+);
+
+if (salarioBase != null) {
+setState(() {
+_resultadoSalarioBase =
+'Salário Base: R\$ ${salarioBase.toStringAsFixed(2)}';
+});
+
+if (horasExtras != null && horasFaltadas != null) {
+final double valorHora = salarioBase / (20 * 8);
+final double valorHorasExtras = horasExtras * (valorHora * 1.5);
+final double valorHorasFaltadas = horasFaltadas * valorHora;
+final double salarioFinal =
+salarioBase + valorHorasExtras - valorHorasFaltadas;
+
+setState(() {
+_resultadoSalarioFinal =
+'Salário Final: R\$ ${salarioFinal.toStringAsFixed(2)}';
+_resultadoDesconto =
+'Horas Faltadas: R\$ ${valorHorasFaltadas.toStringAsFixed(2)}';
+_resultadoHoraExtra =
+'Horas Extras: R\$ ${valorHorasExtras.toStringAsFixed(2)}';
+});
+} else {
+setState(() {
+_resultadoSalarioFinal = 'Preencha horas extras e faltadas.';
+_resultadoDesconto = '';
+_resultadoHoraExtra = '';
+});
+}
+} else {
+setState(() {
+_resultadoSalarioBase = 'Insira um salário base válido.';
+_resultadoSalarioFinal = '';
+_resultadoDesconto = '';
+_resultadoHoraExtra = '';
+});
+}
+}
+
+@override
+Widget build(BuildContext context) {
+return Padding(
+padding: const EdgeInsets.all(16.0),
+child: Column(
+mainAxisAlignment: MainAxisAlignment.center,
+children: <Widget>[
+TextField(
+controller: _salarioBaseController,
+decoration: InputDecoration(labelText: 'Salário Base (R\$)'),
+keyboardType: TextInputType.numberWithOptions(decimal: true),
+),
+TextField(
+controller: _horasExtrasController,
+decoration: InputDecoration(labelText: 'Horas Extras Trabalhadas'),
+keyboardType: TextInputType.number,
+),
+TextField(
+controller: _horasFaltadasController,
+decoration: InputDecoration(labelText: 'Horas Faltadas no Mês'),
+keyboardType: TextInputType.number,
+),
+SizedBox(height: 20),
+ElevatedButton(onPressed: _calcularSalario, child: Text('Calcular')),
+SizedBox(height: 20),
+Text(_resultadoSalarioBase, style: TextStyle(fontSize: 18)),
+Text(
+_resultadoSalarioFinal,
+style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+),
+Text(
+_resultadoDesconto,
+style: TextStyle(fontSize: 18, color: Colors.black),
+),
+Text(
+_resultadoHoraExtra,
+style: TextStyle(fontSize: 18, color: Colors.black),
+),
+],
+),
+);
+}
+}
