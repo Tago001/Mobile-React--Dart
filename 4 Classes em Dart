@@ -1,0 +1,149 @@
+// Calcular idade
+class CalcularIdade {
+  int _anoAtual = 0, _anoNascimento = 0, _idade = 0;
+
+  int get anoAtual => _anoAtual;
+  set anoAtual(int novoAtual) => _anoAtual = novoAtual;
+
+  int get anoNascimento => _anoNascimento;
+  set anoNascimento(int novoAno) => _anoNascimento = novoAno;
+
+  int get idade => _idade;
+
+  void calcular() {
+    _idade = _anoAtual - _anoNascimento;
+  }
+}
+
+// Conversor de tempo
+class ConverterTempo {
+  double _horas = 0, _resultado = 0;
+
+  double get horas => _horas;
+  set horas(double value) => _horas = value;
+
+  double get resultado => _resultado;
+
+  void converterParaMinutos() {
+    _resultado = _horas * 60;
+  }
+
+  void converterParaSegundos() {
+    _resultado = _horas * 3600;
+  }
+}
+
+// Cálculo de salário
+class CalcularSalario {
+  double _salarioBase = 0;
+  int _faltas = 0;
+  double _horaExtra = 0;
+
+  double _salarioHora = 0;
+  double _valorDescontoFalta = 0;
+  double _salarioComDesconto = 0;
+  double _valorHoraExtra = 0;
+  double _salarioComAcrescimo = 0;
+
+  double get salarioBase => _salarioBase;
+  set salarioBase(double value) => _salarioBase = value;
+
+  int get faltas => _faltas;
+  set faltas(int value) => _faltas = value;
+
+  double get horaExtra => _horaExtra;
+  set horaExtra(double value) => _horaExtra = value;
+
+  double get salarioHora => _salarioHora;
+  double get valorDescontoFalta => _valorDescontoFalta;
+  double get salarioComDesconto => _salarioComDesconto;
+  double get valorHoraExtra => _valorHoraExtra;
+  double get salarioComAcrescimo => _salarioComAcrescimo;
+
+  void calcularSalarioHora() {
+    _salarioHora = _salarioBase / 240;
+  }
+
+  void calcularDescontoFaltas() {
+    _valorDescontoFalta = _salarioHora * (_faltas * 8);
+  }
+
+  void calcularSalarioComDesconto() {
+    _salarioComDesconto = _salarioBase - _valorDescontoFalta;
+  }
+
+  void calcularHoraExtra() {
+    _valorHoraExtra = _salarioHora * 1.5 * _horaExtra;
+  }
+
+  void calcularSalarioComAcrescimo() {
+    _salarioComAcrescimo = _salarioBase + _valorHoraExtra;
+  }
+}
+
+// Calcular valor de venda
+class CalcularVenda {
+  double _precoUnitario = 0;
+  int _quantidade = 0;
+  double _valorTotal = 0;
+
+  double get precoUnitario => _precoUnitario;
+  set precoUnitario(double value) => _precoUnitario = value;
+
+  int get quantidade => _quantidade;
+  set quantidade(int value) => _quantidade = value;
+
+  double get valorTotal => _valorTotal;
+
+  void calcular() {
+    _valorTotal = _precoUnitario * _quantidade;
+  }
+}
+
+void main() {
+  // Calcular Idade
+  var idade = CalcularIdade();
+  idade.anoNascimento = 1993;
+  idade.anoAtual = 2025;
+  idade.calcular();
+  print("Sua idade é: ${idade.idade}");
+
+  print("===================================");
+
+  // Conversor de Tempo
+  var tempo = ConverterTempo();
+  tempo.horas = 2;
+  tempo.converterParaMinutos();
+  print("2 horas em minutos: ${tempo.resultado}");
+  tempo.converterParaSegundos();
+  print("2 horas em segundos: ${tempo.resultado}");
+
+  print("===================================");
+
+  // Cálculo de Salário
+  var salario = CalcularSalario();
+  salario.salarioBase = 1000;
+  salario.faltas = 2;
+  salario.horaExtra = 2;
+  salario.calcularSalarioHora();
+  salario.calcularDescontoFaltas();
+  salario.calcularSalarioComDesconto();
+  salario.calcularHoraExtra();
+  salario.calcularSalarioComAcrescimo();
+
+  print("Salário base: R\$${salario.salarioBase.toStringAsFixed(2)}");
+  print("Valor por hora: R\$${salario.salarioHora.toStringAsFixed(2)}");
+  print("Desconto por faltas: R\$${salario.valorDescontoFalta.toStringAsFixed(2)}");
+  print("Salário com desconto: R\$${salario.salarioComDesconto.toStringAsFixed(2)}");
+  print("Valor das horas extras: R\$${salario.valorHoraExtra.toStringAsFixed(2)}");
+  print("Salário com acréscimos: R\$${salario.salarioComAcrescimo.toStringAsFixed(2)}");
+
+  print("===================================");
+
+  // Calcular valor da venda
+  var venda = CalcularVenda();
+  venda.precoUnitario = 10;
+  venda.quantidade = 2;
+  venda.calcular();
+  print("O valor total da venda é: R\$${venda.valorTotal.toStringAsFixed(2)}");
+}
