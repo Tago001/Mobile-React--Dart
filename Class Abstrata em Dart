@@ -1,0 +1,77 @@
+// Definição da classe abstrata
+abstract class Forma {
+
+void desenhar();
+
+// Método abstrato
+double calcularArea();
+}
+
+// extend
+class Circulo extends Forma {
+double raio;
+
+Circulo(this.raio);
+
+@override
+void desenhar() {
+print("Desenhando um círculo com raio $raio.");
+}
+
+@override
+double calcularArea() {
+return 3.14159 * raio * raio;
+}
+}
+
+
+class Retangulo extends Forma {
+double comprimento;
+double altura;
+
+Retangulo(this.comprimento, this.altura);
+
+@override
+void desenhar() {
+print("Desenhando um retângulo com comprimento $comprimento e altura $altura.");
+}
+
+@override
+double calcularArea() {
+return comprimento * altura;
+}
+}
+
+
+class Triangulo extends Forma {
+double base;
+double altura;
+
+Triangulo(this.base, this.altura);
+
+@override
+void desenhar() {
+print("Desenhando um triângulo com base $base e altura $altura.");
+}
+
+@override
+double calcularArea() {
+return (base * altura) / 2;
+}
+}
+
+void main() {
+// instância
+Forma circulo = Circulo(5.0);
+Forma retangulo = Retangulo(9.5, 57.8);
+Forma triangulo = Triangulo(10.0, 15.0);
+
+circulo.desenhar();
+print("Área do círculo: ${circulo.calcularArea()}");
+
+retangulo.desenhar();
+print("Área do retângulo: ${retangulo.calcularArea()}"); // Área do retângulo
+
+triangulo.desenhar();
+print("Área do triângulo: ${triangulo.calcularArea()}"); // Área do triângulo
+}
