@@ -1,0 +1,439 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Questionário de Flutter',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
+      home: QuestionarioScreen(),
+    );
+  }
+}
+
+class QuestionarioScreen extends StatefulWidget {
+  @override
+  _QuestionarioScreenState createState() => _QuestionarioScreenState();
+}
+
+class _QuestionarioScreenState extends State<QuestionarioScreen> {
+  final List<Map<String, dynamic>> questions = [
+    {
+      'question': 'O que significa import?',
+      'options': [
+        'Importa bibliotecas ou arquivos para usar no código.',
+        'Cria uma nova classe.',
+        'Define uma variável global.',
+        'Executa um loop no programa.',
+      ],
+      'answer': 'Importa bibliotecas ou arquivos para usar no código.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Para que serve o comando @override?',
+      'options': [
+        'Cria uma nova classe.',
+        'Indica que um método sobrescreve um método da superclasse.',
+        'Importa uma biblioteca.',
+        'Define uma variável.',
+      ],
+      'answer': ['Indica que um método sobrescreve um método da superclasse.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é um checkbox?',
+      'options': [
+        'Um botão de rádio.',
+        'Uma barra de navegação.',
+        'Widget que permite marcar/desmarcar uma opção.',
+        'Um campo de texto.',
+      ],
+      'answer': 'Widget que permite marcar/desmarcar uma opção.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é uma classe?',
+      'options': [
+        'Um tipo de loop.',
+        'Modelo para criar objetos com atributos e métodos.',
+        'Uma função simples.',
+        'Um widget de interface.',
+      ],
+      'answer': ['Modelo para criar objetos com atributos e métodos.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que são atributos?',
+      'options': [
+        'Variáveis que armazenam dados de uma classe.',
+        'Funções dentro de uma classe.',
+        'Estilos de interface.',
+        'Comandos de loop.',
+      ],
+      'answer': 'Variáveis que armazenam dados de uma classe.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que são métodos?',
+      'options': [
+        'Variáveis globais.',
+        'Funções que definem comportamentos de uma classe.',
+        'Estilos de widgets.',
+        'Tipos de dados.',
+      ],
+      'answer': ['Funções que definem comportamentos de uma classe.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é identidade em Dart?',
+      'options': [
+        'Unicidade de um objeto (comparada com identical).',
+        'Um tipo de widget.',
+        'Um método de loop.',
+        'Uma propriedade de estilo.',
+      ],
+      'answer': 'Unicidade de um objeto (comparada com identical).',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que significa extends?',
+      'options': [
+        'Cria um loop.',
+        'Define uma variável.',
+        'Herdar propriedades e métodos de uma superclasse.',
+        'Importa um arquivo.',
+      ],
+      'answer': ['Herdar propriedades e métodos de uma superclasse.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'Quais características de uma classe abstrata?',
+      'options': [
+        'Não pode ser instanciada, pode ter métodos abstratos.',
+        'Pode ser instanciada diretamente.',
+        'É usada só para estilos.',
+        'Não permite herança.',
+      ],
+      'answer': 'Não pode ser instanciada, pode ter métodos abstratos.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Quais características de uma Interface em Dart?',
+      'options': [
+        'É um widget de interface.',
+        'Define métodos que uma classe deve implementar.',
+        'Armazena dados diretamente.',
+        'Cria loops automáticos.',
+      ],
+      'answer': ['Define métodos que uma classe deve implementar.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é border radius?',
+      'options': [
+        'Define a cor de fundo.',
+        'Cria um botão.',
+        'Arredonda os cantos de um widget.',
+        'Alinha texto.',
+      ],
+      'answer': 'Arredonda os cantos de um widget.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Qual o nome que se dá para construir listas?',
+      'options': ['ListView.', 'TextField.', 'Container.', 'Scaffold.'],
+      'answer': 'ListView.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Quais são os tipos de ListView?',
+      'options': [
+        'ListView.text, ListView.image.',
+        'ListView, ListView.builder, ListView.separated, ListView.custom.',
+        'ListView.button, ListView.icon.',
+        'ListView.row, ListView.column.',
+      ],
+      'answer': [
+        'ListView, ListView.builder, ListView.separated, ListView.custom.',
+      ],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é um state?',
+      'options': [
+        'Um tipo de botão.',
+        'Estado de um widget que pode mudar.',
+        'Uma classe abstrata.',
+        'Um estilo de texto.',
+      ],
+      'answer': 'Estado de um widget que pode mudar.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é um Scaffold em Flutter?',
+      'options': [
+        'Widget que fornece a estrutura básica de uma tela.',
+        'Um tipo de botão.',
+        'Uma função de loop.',
+        'Um estilo de texto.',
+      ],
+      'answer': 'Widget que fornece a estrutura básica de uma tela.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é Setters?',
+      'options': [
+        'Métodos que definem o valor de uma propriedade.',
+        'Widgets de interface.',
+        'Funções de loop.',
+        'Estilos de borda.',
+      ],
+      'answer': ['Métodos que definem o valor de uma propriedade.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que são getters?',
+      'options': [
+        'Funções de estilo.',
+        'Métodos que retornam o valor de uma propriedade.',
+        'Widgets de botão.',
+        'Comandos de importação.',
+      ],
+      'answer': 'Métodos que retornam o valor de uma propriedade.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é polimorfismo?',
+      'options': [
+        'Permite que objetos de classes diferentes sejam tratados como da mesma superclasse.',
+        'Um tipo de widget.',
+        'Um estilo de texto.',
+        'Uma função de loop.',
+      ],
+      'answer': [
+        'Permite que objetos de classes diferentes sejam tratados como da mesma superclasse.',
+      ],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é encapsulamento?',
+      'options': [
+        'Cria uma interface.',
+        'Esconde detalhes internos de uma classe, usando modificadores como _.',
+        'Define um loop.',
+        'Estiliza widgets.',
+      ],
+      'answer':
+          'Esconde detalhes internos de uma classe, usando modificadores como _.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Como também é conhecido sobrecarga?',
+      'options': [
+        'Não existe sobrecarga de métodos em Dart.',
+        'Sobrescrita.',
+        'Herança.',
+        'Polimorfismo.',
+      ],
+      'answer': 'Não existe sobrecarga de métodos em Dart.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Como também é conhecido sobrescrita?',
+      'options': ['Override.', 'Overload.', 'Encapsulamento.', 'Herança.'],
+      'answer': ['Override.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que significa void?',
+      'options': [
+        'Define uma classe.',
+        'Indica que uma função não retorna valor.',
+        'Cria um widget.',
+        'Estiliza uma borda.',
+      ],
+      'answer': 'Indica que uma função não retorna valor.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é um Radio button?',
+      'options': [
+        'Widget que permite selecionar uma única opção.',
+        'Um campo de texto.',
+        'Uma lista de itens.',
+        'Um botão de ação.',
+      ],
+      'answer': 'Widget que permite selecionar uma única opção.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Quais são as características do Radio Group?',
+      'options': [
+        'Cria múltiplas seleções.',
+        'Agrupa Radio buttons para uma única seleção.',
+        'É um campo de texto.',
+        'Define estilos de borda.',
+      ],
+      'answer': ['Agrupa Radio buttons para uma única seleção.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é mais utilizado no Radio Group?',
+      'options': [
+        'Radio buttons com um valor compartilhado.',
+        'Checkboxes.',
+        'TextFields.',
+        'Botões de ação.',
+      ],
+      'answer': 'Radio buttons com um valor compartilhado.',
+      'type': 'radio',
+    },
+    {
+      'question': 'Quais construtores possuímos em Flutter?',
+      'options': [
+        'Padrão, nomeados, factory.',
+        'Loop, estilo, widget.',
+        'Texto, botão, lista.',
+        'Abstrato, interface, herança.',
+      ],
+      'answer': ['Padrão, nomeados, factory.'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que é um construtor padrão?',
+      'options': [
+        'Um método de loop.',
+        'Inicializa uma classe sem parâmetros nomeados.',
+        'Um estilo de widget.',
+        'Uma função de retorno.',
+      ],
+      'answer': 'Inicializa uma classe sem parâmetros nomeados.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que são construtores nomeados?',
+      'options': [
+        'Construtores com nomes específicos (ex.: Classe.nome).',
+        'Funções de estilo.',
+        'Widgets de botão.',
+        'Loops automáticos.',
+      ],
+      'answer': ['Construtores com nomes específicos (ex.: Classe.nome).'],
+      'type': 'checkbox',
+    },
+    {
+      'question': 'O que significa o return?',
+      'options': [
+        'Cria uma classe.',
+        'Retorna um valor de uma função.',
+        'Define um widget.',
+        'Estiliza uma borda.',
+      ],
+      'answer': 'Retorna um valor de uma função.',
+      'type': 'radio',
+    },
+    {
+      'question': 'O que é um Navigator em Flutter?',
+      'options': [
+        'Um widget de texto.',
+        'Gerencia navegação entre telas (ex.: push, pop).',
+        'Um tipo de loop.',
+        'Um estilo de borda.',
+      ],
+      'answer': 'Gerencia navegação entre telas (ex.: push, pop).',
+      'type': 'radio',
+    },
+  ];
+
+  Map<int, dynamic> userAnswers = {};
+
+  void _submit() {
+    int correct = 0;
+
+    for (int i = 0; i < questions.length; i++) {
+      var question = questions[i];
+      if (question['type'] == 'radio' && userAnswers[i] == question['answer']) {
+        correct++;
+      }
+      if (question['type'] == 'checkbox' &&
+          Set.from(userAnswers[i] ?? []) == Set.from(question['answer'])) {
+        correct++;
+      }
+    }
+
+    double score = (correct / questions.length) * 100;
+
+    showDialog(
+      context: context,
+      builder:
+          (_) => AlertDialog(
+            title: Text('Resultado'),
+            content: Text(
+              'Você acertou ${score.toStringAsFixed(1)}% das perguntas.',
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Questionário Flutter')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            for (int i = 0; i < questions.length; i++)
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Pergunta${i + 1}. ${questions[i]['question']}',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  if (questions[i]['type'] == 'radio')
+                    for (String option in questions[i]['options'])
+                      RadioListTile<String>(
+                        title: Text(option),
+                        value: option,
+                        groupValue: userAnswers[i],
+                        onChanged: (String? value) {
+                          setState(() => userAnswers[i] = value);
+                        },
+                      ),
+                  if (questions[i]['type'] == 'checkbox')
+                    for (String option in questions[i]['options'])
+                      CheckboxListTile(
+                        title: Text(option),
+                        value: userAnswers[i]?.contains(option) ?? false,
+                        onChanged: (bool? value) {
+                          setState(() {
+                            userAnswers[i] = userAnswers[i] ?? [];
+                            if (value == true) {
+                              userAnswers[i].add(option);
+                            } else {
+                              userAnswers[i].remove(option);
+                            }
+                          });
+                        },
+                      ),
+                ],
+              ),
+            const SizedBox(height: 20),
+            ElevatedButton(onPressed: _submit, child: const Text('Enviar')),
+          ],
+        ),
+      ),
+    );
+  }
+}
