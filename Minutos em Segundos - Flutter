@@ -31,14 +31,13 @@ class _HorasSegundosFormState extends State<HorasSegundosForm> {
     final double? horas = double.tryParse(_horas.text);
 
     if (horas != null) {
-      final double resultado = horas * 60;
-
+      final double resultadoMinutos
       setState(() {
-        _resultado = '$horas horas convertidos em minutos fica: $resultado min';
+        _minutos = '$horas horas convertidos em minutos fica: $resultadoMinutos min';
       });
     } else {
       setState(() {
-        _resultado = 'Por favor, insira um nome e nÃºmeros vÃ¡lidos.';
+        _minutos = 'Por favor, insira um número válido.';
       });
     }
   }
@@ -47,18 +46,17 @@ class _HorasSegundosFormState extends State<HorasSegundosForm> {
     final double? horas = double.tryParse(_horas.text);
 
     if (horas != null) {
-      final double resultado = horas * (60 * 60);
+      final double resultadoSegundos = horas * 60 * 60;
 
       setState(() {
-        _resultado = '$horas horas convertidos em segundos fica: $resultado seg';
+        _segundos = '$horas horas convertidos em segundos fica: $resultadoSegundos seg';
       });
     } else {
       setState(() {
-        _resultado = 'Por favor, insira um nome e nÃºmeros vÃ¡lidos.';
+        _segundos = 'Por favor, insira um número válido.';
       });
     }
   }
-  
   
   @override
   Widget build(BuildContext context) {
@@ -81,29 +79,23 @@ class _HorasSegundosFormState extends State<HorasSegundosForm> {
             onPressed: _horasMinutos,
             child: Text('Calcular em Minutos'),
           ),
-           SizedBox(height: 20),
+          SizedBox(height: 20),
           ElevatedButton(
             onPressed: _horasSegundos,
             child: Text('Calcular em Segundos'),
           ),
           SizedBox(height: 20),
           Text(
-            _resultado,
+            _minutos,
             style: TextStyle(fontSize: 24),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 20),
           Text(
-            _minutos,
-            style: TextStyle(fontSize: 24),
-            textAlign: TextAlign.center,
-            ),
-          SizedBox(height: 20),
-          Text(
             _segundos,
             style: TextStyle(fontSize: 24),
             textAlign: TextAlign.center,
-            )
+          ),
         ],
       ),
     );
