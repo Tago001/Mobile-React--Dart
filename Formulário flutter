@@ -1,0 +1,139 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text('Meu Form Simples')),
+        body: MySimpleForm(),
+      ),
+    );
+  }
+}
+
+class MySimpleForm extends StatefulWidget {
+  @override
+  _MySimpleFormState createState() => _MySimpleFormState();
+}
+
+class _MySimpleFormState extends State<MySimpleForm> {
+  final TextEditingController _inputController = TextEditingController();
+  String? _radioSelection;
+  bool _checkboxValue = false;
+  final List<String> _dataList = [];
+
+  void _submitData() {
+    String inputText = _inputController.text.trim();
+    String radioText = _radioSelection ?? 'Nenhum Radio';
+    String checkboxText = _checkboxValue ? 'Checkbox Marcado' : 'Checkbox Desmarcado';
+
+    if (inputText.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Digite algo no input.')),
+      );
+      return;
+    }
+
+    setState(() {
+      _dataList.add('Input: $inputText | Radio: $radioText | Checkbox: $checkboxText');
+      _inputController.clear();
+      _radioSelection = null;
+      _checkboxValue = false;
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Dados Adicionados!')),
+    );
+  }
+
+  @override
+  void dispose() {
+    _inputController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          TextField(
+            controller: _inputController,
+            decoration: InputDecoration(
+              labelText: 'Digite aqui',
+              border: OutlineInputBorder(),
+            ),
+          ),
+          SizedBox(height: 20),
+
+          Text('Escolha uma opção:', style: TextStyle(fontSize: 16)),
+          RadioListTile<String>(
+            title: Text('Opção A'),
+            value: 'Opção A',
+            groupValue: _radioSelection,
+            onChanged: (String? value) {
+              setState(() {
+                _radioSelection = value;
+              });
+            },
+          ),
+          RadioListTile<String>(
+            title: Text('Opção B'),
+            value: 'Opção B',
+            groupValue: _radioSelection,
+            onChanged: (String? value) {
+              setState(() {
+                _radioSelection = value;
+              });
+            },
+          ),
+          SizedBox(height: 20),
+
+          CheckboxListTile(
+            title: Text('Marcar esta caixa'),
+            value: _checkboxValue,
+            onChanged: (bool? value) {
+              setState(() {
+                _checkboxValue = value!;
+              });
+            },
+          ),
+          SizedBox(height: 30),
+
+          ElevatedButton(
+            onPressed: _submitData,
+            child: Text('Adicionar à Lista'),
+          ),
+          SizedBox(height: 30),
+
+          Text('Itens na Lista:', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          SizedBox(height: 10),
+          Expanded(
+            child: _dataList.isEmpty
+                ? Center(
+                    child: Text('Lista vazia.'),
+                  )
+                : ListView.builder(
+                    itemCount: _dataList.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        margin: EdgeInsets.symmetric(vertical: 5.0),
+                        child: ListTile(
+                          title: Text(_dataList[index]),
+                        ),
+                      );
+                    },
+                  ),
+          ),
+        ],
+      ),
+    );
+  }
+}
